@@ -1,0 +1,68 @@
+{
+    "name": "@repraze/rnd",
+    "version": "1.0.0",
+    "description": "Simple randomizer library",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist/"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/repraze/rnd.git"
+    },
+    "bugs": {
+        "url": "https://github.com/repraze/rnd/issues"
+    },
+    "homepage": "https://github.com/repraze/rnd#readme",
+    "keywords": [
+        "random",
+        "randomizer",
+        "rng",
+        "prng",
+        "seeded",
+        "weighted",
+        "shuffle",
+        "typescript",
+        "javascript"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "lint": "eslint src/**/*.ts test/**/*.ts",
+        "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+        "prepare": "husky"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/jest": "^29.5.0",
+        "@typescript-eslint/eslint-plugin": "^7.0.0",
+        "@typescript-eslint/parser": "^7.0.0",
+        "eslint": "^8.0.0",
+        "husky": "^9.1.7",
+        "jest": "^29.0.0",
+        "prettier": "^3.0.0",
+        "ts-jest": "^29.0.0",
+        "typescript": "^5.0.0"
+    },
+    "lint-staged": {
+        "src/**/*.ts": [
+            "prettier --write",
+            "eslint --fix"
+        ],
+        "test/**/*.ts": [
+            "prettier --write",
+            "eslint --fix"
+        ]
+    }
+}
