@@ -4,7 +4,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/repraze/rnd/ci.yml?branch=main&style=flat-square)](https://github.com/repraze/rnd/actions)
 [![Coverage Status](https://img.shields.io/coveralls/github/repraze/rnd/main?style=flat-square)](https://coveralls.io/github/repraze/rnd?branch=main)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/@repraze/rnd?style=flat-square)](https://bundlephobia.com/package/@repraze/rnd)
 
 A simple, dependency-free randomizer library for JavaScript and TypeScript.
