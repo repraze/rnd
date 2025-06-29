@@ -46,10 +46,10 @@ console.log(range.weighted(5, ['rare', 'common'], [1, 10])); // ['common', 'comm
 ### Advanced usage (custom random provider)
 
 ```typescript
-import { Random, createSeededRNG, secureRNG } from '@repraze/rnd';
+import { Random, seededRNG, secureRNG } from '@repraze/rnd';
 
 // Use a seeded RNG (deterministic, repeatable)
-const seededRng = createSeededRNG('my-seed');
+const seededRng = seededRNG('my-seed');
 const seededRandom = new Random(seededRng);
 console.log(seededRandom.int(1, 10));
 console.log(seededRandom.range.int(5, 1, 10));
@@ -78,7 +78,7 @@ console.log(secureRandom.range.weighted(4, ['low', 'high'], [2, 8]));
 - `range.weighted(count, items, weights)` — Array of random weighted selections.
 - `Random.default()` — Create a Random instance using `Math.random`.
 - `new Random(rng)` — Create a Random instance with a custom RNG.
-- `createSeededRNG(seed)` — Create a deterministic RNG from a string or number seed.
+- `seededRNG(seed)` — Create a deterministic RNG from a string or number seed.
 - `secureRNG()` — Create a cryptographically secure RNG (browser and Node.js compatible).
 - All instance methods: `int`, `float`, `boolean`, `item`, `shuffle`, `weighted`, `range`.
 

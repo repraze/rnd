@@ -1,5 +1,7 @@
-export * from './random';
-export * from './randomizers';
+export { Random } from './random';
+export { seededRNG, secureRNG } from './randomizers';
+export type { Randomizer } from './randomizers';
+export type { RangeMethods } from './random';
 
 import { Random, type RangeMethods } from './random';
 

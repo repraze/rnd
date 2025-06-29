@@ -9,8 +9,10 @@
             "import": "./dist/index.js",
             "require": "./dist/index.js",
             "types": "./dist/index.d.ts"
-        }
+        },
+        "./package.json": "./package.json"
     },
+    "sideEffects": false,
     "files": [
         "dist/"
     ],
@@ -42,7 +44,7 @@
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "prepare": "husky"
     },
-    "author": "",
+    "author": "Thomas Dubosc (http://repraze.com)",
     "license": "MIT",
     "devDependencies": {
         "@types/jest": "^29.5.0",

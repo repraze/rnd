@@ -1,23 +1,23 @@
 import { Random } from '../src/random';
-import { createSeededRNG, secureRNG } from '../src/randomizers';
+import { seededRNG, secureRNG } from '../src/randomizers';
 
-describe('createSeededRNG', () => {
+describe('seededRNG', () => {
     it('produces repeatable sequences for the same seed', () => {
-        const rng1 = createSeededRNG('abc');
-        const rng2 = createSeededRNG('abc');
+        const rng1 = seededRNG('abc');
+        const rng2 = seededRNG('abc');
         const seq1 = Array.from({ length: 5 }, () => rng1());
         const seq2 = Array.from({ length: 5 }, () => rng2());
         expect(seq1).toEqual(seq2);
     });
     it('produces different sequences for different seeds', () => {
-        const rng1 = createSeededRNG('abc');
-        const rng2 = createSeededRNG('def');
+        const rng1 = seededRNG('abc');
+        const rng2 = seededRNG('def');
         const seq1 = Array.from({ length: 5 }, () => rng1());
         const seq2 = Array.from({ length: 5 }, () => rng2());
         expect(seq1).not.toEqual(seq2);
     });
     it('output is in [0, 1)', () => {
-        const rng = createSeededRNG(123);
+        const rng = seededRNG(123);
         for (let i = 0; i < 10; i++) {
             const val = rng();
             expect(val).toBeGreaterThanOrEqual(0);

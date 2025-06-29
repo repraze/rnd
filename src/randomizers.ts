@@ -22,7 +22,7 @@ function hashStringToNumber(str: string): number {
  * Mulberry32 PRNG, seeded. Returns a function compatible with Math.random.
  * Accepts string or number as seed.
  */
-export function createSeededRNG(seed: string | number): Randomizer {
+export function seededRNG(seed: string | number): Randomizer {
     let s = typeof seed === 'string' ? hashStringToNumber(seed) : seed;
     let t = s >>> 0;
     return function () {
