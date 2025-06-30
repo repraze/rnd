@@ -1,9 +1,9 @@
-export { Random } from './random';
-export { seededRNG, secureRNG } from './randomizers';
-export type { Randomizer } from './randomizers';
-export type { RangeMethods } from './random';
+export { Random } from "./random";
+export { seededRNG, secureRNG } from "./generators";
+export type { Generator } from "./generators";
+export type { RangeMethods } from "./random";
 
-import { Random, type RangeMethods } from './random';
+import { Random, type RangeMethods } from "./random";
 
 const defaultRandom = Random.default();
 

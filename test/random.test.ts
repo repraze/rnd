@@ -1,13 +1,13 @@
-import { Random } from '../src/random';
-import { int, float, boolean, item, shuffle, range, weighted } from '../src';
+import { Random } from "../src/random";
+import { int, float, boolean, item, shuffle, range, weighted } from "../src";
 
-describe('Random', () => {
+describe("Random", () => {
     let rnd: Random;
     beforeEach(() => {
         rnd = Random.default();
     });
 
-    it('int returns integer in range', () => {
+    it("int returns integer in range", () => {
         for (let i = 0; i < 100; i++) {
             const val = rnd.int(1, 5);
             expect(val).toBeGreaterThanOrEqual(1);
@@ -16,7 +16,7 @@ describe('Random', () => {
         }
     });
 
-    it('float returns float in range', () => {
+    it("float returns float in range", () => {
         for (let i = 0; i < 100; i++) {
             const val = rnd.float(0, 1);
             expect(val).toBeGreaterThanOrEqual(0);
@@ -24,28 +24,28 @@ describe('Random', () => {
         }
     });
 
-    it('boolean returns boolean', () => {
+    it("boolean returns boolean", () => {
         for (let i = 0; i < 10; i++) {
             const val = rnd.boolean();
-            expect(typeof val).toBe('boolean');
+            expect(typeof val).toBe("boolean");
         }
     });
 
-    it('item returns item from list', () => {
+    it("item returns item from list", () => {
         const arr = [1, 2, 3];
         for (let i = 0; i < 10; i++) {
             expect(arr.includes(rnd.item(arr))).toBe(true);
         }
     });
 
-    it('shuffle returns permutation', () => {
+    it("shuffle returns permutation", () => {
         const arr = [1, 2, 3, 4];
         const shuffled = rnd.shuffle(arr);
         expect(shuffled.sort()).toEqual(arr);
         expect(shuffled).not.toBe(arr);
     });
 
-    it('use changes the randomizer', () => {
+    it("use changes the randomizer", () => {
         // Create a mock randomizer that always returns 0.5
         const mockRng = () => 0.5;
         rnd.use(mockRng);
@@ -56,7 +56,7 @@ describe('Random', () => {
         expect(rnd.int(1, 10)).toBe(6); // Math.floor(0.5 * 10) + 1 = 6
     });
 
-    it('range.int returns array of ints', () => {
+    it("range.int returns array of ints", () => {
         const arr = rnd.range.int(5, 1, 3);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
@@ -66,7 +66,7 @@ describe('Random', () => {
         });
     });
 
-    it('range.float returns array of floats', () => {
+    it("range.float returns array of floats", () => {
         const arr = rnd.range.float(5, 0, 1);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
@@ -75,16 +75,16 @@ describe('Random', () => {
         });
     });
 
-    it('range.boolean returns array of booleans', () => {
+    it("range.boolean returns array of booleans", () => {
         const arr = rnd.range.boolean(5);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
-            expect(typeof val).toBe('boolean');
+            expect(typeof val).toBe("boolean");
         });
     });
 
-    it('range.item returns array of items', () => {
-        const items = ['a', 'b', 'c'];
+    it("range.item returns array of items", () => {
+        const items = ["a", "b", "c"];
         const arr = rnd.range.item(5, items);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
@@ -92,8 +92,8 @@ describe('Random', () => {
         });
     });
 
-    it('range.weighted returns array of weighted items', () => {
-        const items = ['a', 'b', 'c'];
+    it("range.weighted returns array of weighted items", () => {
+        const items = ["a", "b", "c"];
         const weights = [1, 2, 3];
         const arr = rnd.range.weighted(5, items, weights);
         expect(arr.length).toBe(5);
@@ -102,8 +102,8 @@ describe('Random', () => {
         });
     });
 
-    it('weighted returns weighted item', () => {
-        const items = ['a', 'b', 'c'];
+    it("weighted returns weighted item", () => {
+        const items = ["a", "b", "c"];
         const weights = [1, 2, 3];
 
         // Test that it returns a valid item
@@ -113,19 +113,15 @@ describe('Random', () => {
         }
 
         // Test error cases
-        expect(() => rnd.weighted(['a'], [1, 2])).toThrow(
-            'Items and weights must have the same length',
+        expect(() => rnd.weighted(["a"], [1, 2])).toThrow(
+            "Items and weights must have the same length"
         );
-        expect(() => rnd.weighted(['a'], [-1])).toThrow(
-            'Weights must be non-negative',
-        );
-        expect(() => rnd.weighted(['a'], [0])).toThrow(
-            'Total weight must be greater than 0',
-        );
+        expect(() => rnd.weighted(["a"], [-1])).toThrow("Weights must be non-negative");
+        expect(() => rnd.weighted(["a"], [0])).toThrow("Total weight must be greater than 0");
     });
 
-    it('weighted fallback returns last item', () => {
-        const items = ['a', 'b', 'c'];
+    it("weighted fallback returns last item", () => {
+        const items = ["a", "b", "c"];
         const weights = [1, 2, 3];
 
         // Mock the randomizer to return exactly the last weight
@@ -134,12 +130,12 @@ describe('Random', () => {
 
         // The fallback should return the last item
         const result = rnd.weighted(items, weights);
-        expect(result).toBe('c'); // Last item in the array
+        expect(result).toBe("c"); // Last item in the array
     });
 });
 
-describe('Singleton shortcut functions', () => {
-    it('int returns integer in range', () => {
+describe("Singleton shortcut functions", () => {
+    it("int returns integer in range", () => {
         for (let i = 0; i < 100; i++) {
             const val = int(1, 5);
             expect(val).toBeGreaterThanOrEqual(1);
@@ -148,7 +144,7 @@ describe('Singleton shortcut functions', () => {
         }
     });
 
-    it('float returns float in range', () => {
+    it("float returns float in range", () => {
         for (let i = 0; i < 100; i++) {
             const val = float(0, 1);
             expect(val).toBeGreaterThanOrEqual(0);
@@ -156,28 +152,28 @@ describe('Singleton shortcut functions', () => {
         }
     });
 
-    it('boolean returns boolean', () => {
+    it("boolean returns boolean", () => {
         for (let i = 0; i < 10; i++) {
             const val = boolean();
-            expect(typeof val).toBe('boolean');
+            expect(typeof val).toBe("boolean");
         }
     });
 
-    it('item returns item from list', () => {
+    it("item returns item from list", () => {
         const arr = [1, 2, 3];
         for (let i = 0; i < 10; i++) {
             expect(arr.includes(item(arr))).toBe(true);
         }
     });
 
-    it('shuffle returns permutation', () => {
+    it("shuffle returns permutation", () => {
         const arr = [1, 2, 3, 4];
         const shuffled = shuffle(arr);
         expect(shuffled.sort()).toEqual(arr);
         expect(shuffled).not.toBe(arr);
     });
 
-    it('range.int returns array of ints', () => {
+    it("range.int returns array of ints", () => {
         const arr = range.int(5, 1, 3);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
@@ -187,7 +183,7 @@ describe('Singleton shortcut functions', () => {
         });
     });
 
-    it('range.float returns array of floats', () => {
+    it("range.float returns array of floats", () => {
         const arr = range.float(5, 0, 1);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
@@ -196,16 +192,16 @@ describe('Singleton shortcut functions', () => {
         });
     });
 
-    it('range.boolean returns array of booleans', () => {
+    it("range.boolean returns array of booleans", () => {
         const arr = range.boolean(5);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
-            expect(typeof val).toBe('boolean');
+            expect(typeof val).toBe("boolean");
         });
     });
 
-    it('range.item returns array of items', () => {
-        const items = ['a', 'b', 'c'];
+    it("range.item returns array of items", () => {
+        const items = ["a", "b", "c"];
         const arr = range.item(5, items);
         expect(arr.length).toBe(5);
         arr.forEach((val) => {
@@ -213,8 +209,8 @@ describe('Singleton shortcut functions', () => {
         });
     });
 
-    it('range.weighted returns array of weighted items', () => {
-        const items = ['a', 'b', 'c'];
+    it("range.weighted returns array of weighted items", () => {
+        const items = ["a", "b", "c"];
         const weights = [1, 2, 3];
         const arr = range.weighted(5, items, weights);
         expect(arr.length).toBe(5);
@@ -223,8 +219,8 @@ describe('Singleton shortcut functions', () => {
         });
     });
 
-    it('weighted returns weighted item', () => {
-        const items = ['a', 'b', 'c'];
+    it("weighted returns weighted item", () => {
+        const items = ["a", "b", "c"];
         const weights = [1, 2, 3];
 
         // Test that it returns a valid item
@@ -234,14 +230,10 @@ describe('Singleton shortcut functions', () => {
         }
 
         // Test error cases
-        expect(() => weighted(['a'], [1, 2])).toThrow(
-            'Items and weights must have the same length',
+        expect(() => weighted(["a"], [1, 2])).toThrow(
+            "Items and weights must have the same length"
         );
-        expect(() => weighted(['a'], [-1])).toThrow(
-            'Weights must be non-negative',
-        );
-        expect(() => weighted(['a'], [0])).toThrow(
-            'Total weight must be greater than 0',
-        );
+        expect(() => weighted(["a"], [-1])).toThrow("Weights must be non-negative");
+        expect(() => weighted(["a"], [0])).toThrow("Total weight must be greater than 0");
     });
 });

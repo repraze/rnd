@@ -4,5 +4,9 @@ coverage/
 tsconfig.json
 .eslintrc.json
 .prettierrc
+prettier.config.js
 .husky/
 *.test.ts
+jest.config.js
+.github/
+.vscode/

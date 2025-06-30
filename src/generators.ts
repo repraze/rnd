@@ -1,4 +1,4 @@
-export type Randomizer = () => number;
+export type Generator = () => number;
 
 /**
  * Hash a string to a number using FNV-1a hash algorithm.
@@ -8,12 +8,7 @@ function hashStringToNumber(str: string): number {
     let hash = 2166136261;
     for (let i = 0; i < str.length; i++) {
         hash ^= str.charCodeAt(i);
-        hash +=
-            (hash << 1) +
-            (hash << 4) +
-            (hash << 7) +
-            (hash << 8) +
-            (hash << 24);
+        hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
     }
     return hash >>> 0;
 }
@@ -22,8 +17,8 @@ function hashStringToNumber(str: string): number {
  * Mulberry32 PRNG, seeded. Returns a function compatible with Math.random.
  * Accepts string or number as seed.
  */
-export function seededRNG(seed: string | number): Randomizer {
-    let s = typeof seed === 'string' ? hashStringToNumber(seed) : seed;
+export function seededRNG(seed: string | number): Generator {
+    let s = typeof seed === "string" ? hashStringToNumber(seed) : seed;
     let t = s >>> 0;
     return function () {
         t += 0x6d2b79f5;
@@ -37,25 +32,20 @@ export function seededRNG(seed: string | number): Randomizer {
  * Secure RNG using crypto.getRandomValues (browser) or crypto.randomBytes (node).
  * Returns a function compatible with Math.random.
  */
-export function secureRNG(): Randomizer {
+export function secureRNG(): Generator {
     if (
-        typeof globalThis !== 'undefined' &&
+        typeof globalThis !== "undefined" &&
         globalThis.crypto &&
-        typeof globalThis.crypto.getRandomValues === 'function'
+        typeof globalThis.crypto.getRandomValues === "function"
     ) {
-        // Browser
         return function () {
             const array = new Uint32Array(1);
             globalThis.crypto.getRandomValues(array);
             return array[0] / 4294967296;
         };
     } else {
-        // Node.js
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const crypto = require('crypto');
-        return function () {
-            const buf = crypto.randomBytes(4);
-            return buf.readUInt32BE(0) / 4294967296;
-        };
+        throw new Error(
+            "Secure RNG is not available. Ensure you are in a secure environment with crypto support."
+        );
     }
 }

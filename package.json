@@ -40,29 +40,27 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
-        "lint": "eslint src/**/*.ts test/**/*.ts",
+        "lint": "eslint .",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "prepare": "husky"
     },
     "author": "Thomas Dubosc (http://repraze.com)",
     "license": "MIT",
     "devDependencies": {
-        "@types/jest": "^29.5.0",
-        "@typescript-eslint/eslint-plugin": "^7.0.0",
-        "@typescript-eslint/parser": "^7.0.0",
-        "eslint": "^8.0.0",
+        "@types/jest": "^30.0.0",
+        "@typescript-eslint/eslint-plugin": "^8.35.0",
+        "@typescript-eslint/parser": "^8.35.0",
+        "eslint": "^9.30.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-jest": "^29.0.1",
         "husky": "^9.1.7",
-        "jest": "^29.0.0",
-        "prettier": "^3.0.0",
-        "ts-jest": "^29.0.0",
-        "typescript": "^5.0.0"
+        "jest": "^30.0.3",
+        "prettier": "^3.6.2",
+        "ts-jest": "^29.4.0",
+        "typescript": "^5.8.3"
     },
     "lint-staged": {
-        "src/**/*.ts": [
-            "prettier --write",
-            "eslint --fix"
-        ],
-        "test/**/*.ts": [
+        "*.ts": [
             "prettier --write",
             "eslint --fix"
         ]

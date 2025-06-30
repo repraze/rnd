@@ -1,4 +1,4 @@
-import type { Randomizer } from './randomizers';
+import type { Generator } from "./generators";
 
 /** Methods for generating arrays of random values */
 export type RangeMethods = {
@@ -11,28 +11,14 @@ export type RangeMethods = {
     /** Generate an array of random items from a list */
     item: <T>(count: number, list: ReadonlyArray<T>) => T[];
     /** Generate an array of random weighted items */
-    weighted: <T>(
-        count: number,
-        items: ReadonlyArray<T>,
-        weights: ReadonlyArray<number>,
-    ) => T[];
+    weighted: <T>(count: number, items: ReadonlyArray<T>, weights: ReadonlyArray<number>) => T[];
 };
 
-function intRange(
-    this: Random,
-    count: number,
-    min: number,
-    max: number,
-): number[] {
+function intRange(this: Random, count: number, min: number, max: number): number[] {
     return Array.from({ length: count }, () => this.int(min, max));
 }
 
-function floatRange(
-    this: Random,
-    count: number,
-    min: number,
-    max: number,
-): number[] {
+function floatRange(this: Random, count: number, min: number, max: number): number[] {
     return Array.from({ length: count }, () => this.float(min, max));
 }
 
@@ -41,11 +27,7 @@ function booleanRange(this: Random, count: number): boolean[] {
 }
 
 /** Generate an array of random items from a list */
-function itemRange<T>(
-    this: Random,
-    count: number,
-    list: ReadonlyArray<T>,
-): T[] {
+function itemRange<T>(this: Random, count: number, list: ReadonlyArray<T>): T[] {
     return Array.from({ length: count }, () => this.item(list));
 }
 
@@ -54,15 +36,15 @@ function weightedRange<T>(
     this: Random,
     count: number,
     items: ReadonlyArray<T>,
-    weights: ReadonlyArray<number>,
+    weights: ReadonlyArray<number>
 ): T[] {
     return Array.from({ length: count }, () => this.weighted(items, weights));
 }
 
 export class Random {
-    private rng: Randomizer;
+    private rng: Generator;
 
-    constructor(rng: Randomizer) {
+    constructor(rng: Generator) {
         this.rng = rng;
     }
 
@@ -71,8 +53,8 @@ export class Random {
         return new Random(Math.random);
     }
 
-    /** Set a new randomizer function */
-    use(rng: Randomizer): void {
+    /** Set a new generator function */
+    use(rng: Generator): void {
         this.rng = rng;
     }
 
@@ -99,15 +81,15 @@ export class Random {
     /** Pick a random item from an array using weighted probabilities */
     weighted<T>(items: ReadonlyArray<T>, weights: ReadonlyArray<number>): T {
         if (items.length !== weights.length) {
-            throw new Error('Items and weights must have the same length');
+            throw new Error("Items and weights must have the same length");
         }
         if (weights.some((w) => w < 0)) {
-            throw new Error('Weights must be non-negative');
+            throw new Error("Weights must be non-negative");
         }
 
         const total = weights.reduce((sum, w) => sum + w, 0);
         if (total === 0) {
-            throw new Error('Total weight must be greater than 0');
+            throw new Error("Total weight must be greater than 0");
         }
 
         let random = this.float(0, total);
@@ -149,14 +131,11 @@ export class Random {
             int: intRange.bind(this),
             float: floatRange.bind(this),
             boolean: booleanRange.bind(this),
-            item: itemRange.bind(this) as <T>(
-                count: number,
-                list: ReadonlyArray<T>,
-            ) => T[],
+            item: itemRange.bind(this) as <T>(count: number, list: ReadonlyArray<T>) => T[],
             weighted: weightedRange.bind(this) as <T>(
                 count: number,
                 items: ReadonlyArray<T>,
-                weights: ReadonlyArray<number>,
+                weights: ReadonlyArray<number>
             ) => T[],
         };
     }
