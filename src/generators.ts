@@ -24,7 +24,7 @@ export function seededRNG(seed: string | number): Generator {
         t += 0x6d2b79f5;
         let r = Math.imul(t ^ (t >>> 15), 1 | t);
         r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
-        return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+        return ((r ^ (r >>> 14)) >>> 0) / 4294967296; // 2^32 - 1
     };
 }
 
@@ -41,7 +41,7 @@ export function secureRNG(): Generator {
         return function () {
             const array = new Uint32Array(1);
             globalThis.crypto.getRandomValues(array);
-            return array[0] / 4294967296;
+            return array[0] / 4294967296; // 2^32 - 1
         };
     } else {
         throw new Error(
